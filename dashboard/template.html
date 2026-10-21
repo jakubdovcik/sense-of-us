@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sense of Us atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f6f7f5; --surface: #ffffff; --ink: #1a2233; --muted: #5b6475; --rule: #dadfe5;
+  --low: #2f4b7c; --mid: #eef0f2; --high: #d99a1e; --enemy: #a63446; --project: #2a7f7a;
+  --focus: #2f4b7c; --banner: #fff4d6; --banner-ink: #5a4100;
+  --c0: #2f4b7c; --c1: #d99a1e; --c2: #2a7f7a; --c3: #a63446; --c4: #7a5c99; --c5: #5b6475;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #10141b; --surface: #171d27; --ink: #e6e9ee; --muted: #9aa3b2; --rule: #2a3240;
+    --low: #6f8fc9; --mid: #222a36; --high: #e8b04a; --enemy: #d4697a; --project: #4fb3ac;
+    --focus: #8fb0e6; --banner: #3a2f12; --banner-ink: #f3dca0;
+    --c0: #6f8fc9; --c1: #e8b04a; --c2: #4fb3ac; --c3: #d4697a; --c4: #a98bcc; --c5: #9aa3b2;
+  }
+}
+* { box-sizing: border-box; }
+html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif; font-size: 16px; line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+header.top { padding: 40px 0 8px; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 750; letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 14px; }
+.lede { font-size: 1.12rem; color: var(--muted); max-width: 62ch; margin: 0 0 18px; font-weight: 400; }
+.status { font-size: 0.9rem; color: var(--muted); }
+.banner { background: var(--banner); color: var(--banner-ink); padding: 10px 14px; border-radius: 6px; margin: 14px 0 0; font-size: 0.95rem; max-width: 80ch; }
+nav.views { display: flex; gap: 22px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); margin: 26px 0 0; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+nav.views a { color: var(--muted); text-decoration: none; padding: 12px 0 10px; font-weight: 550; border-bottom: 3px solid transparent; }
+nav.views a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+nav.views a:focus-visible, button:focus-visible, select:focus-visible, th:focus-visible, tr:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+main { padding: 28px 0 80px; }
+h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.015em; margin: 0 0 6px; }
+h3 { font-size: 1.1rem; font-weight: 650; margin: 28px 0 8px; }
+p.note { color: var(--muted); max-width: 70ch; margin: 0 0 18px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); white-space: nowrap; }
+table.matrix th.sortable { cursor: pointer; user-select: none; }
+table.matrix th.sortable[aria-sort="descending"]::after { content: " ▾"; }
+table.matrix th.sortable[aria-sort="ascending"]::after { content: " ▴"; }
+table.matrix td.cell { padding: 3px; width: 64px; }
+.swatch { display: block; height: 36px; border-radius: 4px; text-align: center; line-height: 36px; font-weight: 650; font-size: 0.95rem; }
+table.matrix tbody tr { cursor: pointer; }
+table.matrix tbody tr:hover td.name { text-decoration: underline; }
+td.name { font-weight: 600; white-space: nowrap; }
+td.name small { display: block; font-weight: 400; color: var(--muted); }
+.chip { display: inline-block; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--rule); font-size: 0.85rem; margin: 2px 4px 2px 0; background: var(--surface); }
+.chip.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; }
+.ramp { display: inline-block; width: 120px; height: 10px; border-radius: 2px; vertical-align: middle; margin: 0 6px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 36px; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+.controls { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; margin: 0 0 18px; }
+label.ctl { font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
+select { font: inherit; padding: 7px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); color: var(--ink); }
+.dim { border-top: 1px solid var(--rule); padding: 14px 0; }
+.dim-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.dim-head strong { font-size: 1.02rem; }
+.val { font-weight: 700; font-size: 1.25rem; }
+.anchor { color: var(--muted); margin: 2px 0 6px; }
+.reason { max-width: 68ch; margin: 6px 0; }
+details summary { cursor: pointer; color: var(--muted); font-size: 0.9rem; }
+ul.evidence { margin: 6px 0 0; padding-left: 18px; font-size: 0.9rem; }
+.conf-low { color: var(--enemy); } .conf-medium { color: var(--muted); } .conf-high { color: var(--project); }
+.chart-box { position: relative; height: 380px; }
+.chart-box.tall { height: 460px; }
+.summary { font-size: 1.05rem; max-width: 66ch; }
+.empty { padding: 40px 0; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Sense of Us atlas</h1>
+    <p class="lede">How societies answer who “we” are, what binds “us”, and what “we” are for or against. Codes come from AI-generated profiles checked against a shared codebook and human raters.</p>
+    <div class="status" id="status"></div>
+    <div id="banner"></div>
+  </header>
+  <nav class="views" aria-label="Views">
+    <a href="#atlas" data-view="atlas">Atlas</a>
+    <a href="#profile" data-view="profile">Profile</a>
+    <a href="#change" data-view="change">Change over time</a>
+    <a href="#typology" data-view="typology">Typology</a>
+    <a href="#reliability" data-view="reliability">Reliability</a>
+    <a href="#codebook" data-view="codebook">Codebook</a>
+  </nav>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<script>
+const DATA = /*__SOU_DATA__*/null;
+
+const $ = (sel, el = document) => el.querySelector(sel);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const dimById = Object.fromEntries((DATA?.dims || []).map(d => [d.id, d]));
+const unitById = Object.fromEntries((DATA?.units || []).map(u => [u.id, u]));
+const ORD = DATA?.ordinal || [];
+const prettify = s => String(s ?? "").replace(/_/g, " ");
+let charts = [];
+
+function scaleRange(id) {
+  const keys = Object.keys(dimById[id]?.scale || {}).map(Number);
+  return keys.length ? [Math.min(...keys), Math.max(...keys)] : [0, 4];
+}
+function hexToRgb(h) { h = h.replace("#", ""); if (h.length === 3) h = [...h].map(c => c + c).join(""); const n = parseInt(h, 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+function mix(a, b, t) { const A = hexToRgb(a), B = hexToRgb(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(",")})`; }
+function cellColour(id, v) {
+  if (v === null || v === undefined) return { bg: css("--mid"), fg: css("--muted") };
+  const [lo, hi] = scaleRange(id);
+  const t = (v - lo) / (hi - lo || 1);
+  const [a, b] = id === "orientation" ? [css("--enemy"), css("--project")] : [css("--low"), css("--high")];
+  const mid = css("--mid");
+  const bg = t < 0.5 ? mix(a, mid, t * 2) : mix(mid, b, (t - 0.5) * 2);
+  const strong = Math.abs(t - 0.5) > 0.3;
+  return { bg, fg: strong ? (t < 0.5 && id !== "orientation" ? "#ffffff" : css("--ink")) : css("--ink") };
+}
+function anchorText(id, v) {
+  const scale = dimById[id]?.scale || {};
+  const k = String(Math.round(v));
+  return scale[k] || "";
+}
+function fmt(v) { return v === null || v === undefined ? "–" : (Number.isInteger(v) ? String(v) : v.toFixed(1)); }
+function destroyCharts() { charts.forEach(c => c.destroy()); charts = []; }
+function chartDefaults() {
+  if (!window.Chart) return false;
+  Chart.defaults.font.family = '"Public Sans", "Helvetica Neue", Arial, sans-serif';
+  Chart.defaults.color = css("--muted");
+  Chart.defaults.borderColor = css("--rule");
+  return true;
+}
+const PALETTE = () => ["--c0", "--c1", "--c2", "--c3", "--c4", "--c5"].map(css);
+function noCharts(el) { el.innerHTML = '<p class="empty">Charts need an internet connection to load the charting library. The tables still work offline.</p>'; }
+
+/* Atlas */
+let sortKey = null, sortDir = -1;
+function renderAtlas(main) {
+  const units = [...DATA.units];
+  if (sortKey) units.sort((a, b) => sortDir * ((a.consensus[sortKey] ?? -9) - (b.consensus[sortKey] ?? -9)));
+  const head = ORD.map(id => `<th class="sortable" tabindex="0" data-key="${id}" aria-sort="${sortKey === id ? (sortDir < 0 ? "descending" : "ascending") : "none"}" title="${esc(dimById[id].question)}">${esc(dimById[id].name)}</th>`).join("");
+  const rows = units.map(u => `
+    <tr tabindex="0" data-id="${esc(u.id)}">
+      <td class="name">${esc(u.unit)}<small>${esc(u.period)}</small></td>
+      ${ORD.map(id => { const v = u.consensus[id]; const c = cellColour(id, v); return `<td class="cell"><span class="swatch" style="background:${c.bg};color:${c.fg}" title="${esc(dimById[id].name)} ${fmt(v)}: ${esc(anchorText(id, v ?? 0))}">${fmt(v)}</span></td>`; }).join("")}
+      <td><span class="chip">${esc(prettify(u.glue_primary))}</span></td>
+    </tr>`).join("");
+  main.innerHTML = `
+    <h2>The matrix of belonging</h2>
+    <p class="note">Each row is a society in a period, coded only from evidence before its cut-off date. Values are the median across all model runs. Select a column to sort, or a row to open its profile.</p>
+    <div class="legend">
+      <span>Most dimensions<span class="ramp" style="background:linear-gradient(90deg,${css("--low")},${css("--mid")},${css("--high")})"></span>low to high</span>
+      <span>Orientation<span class="ramp" style="background:linear-gradient(90deg,${css("--enemy")},${css("--mid")},${css("--project")})"></span>against an enemy to a shared project</span>
+    </div>
+    <div class="scroll"><table class="matrix"><thead><tr><th>Society</th>${head}<th>Main glue</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  main.querySelectorAll("th.sortable").forEach(th => {
+    const go = () => { const k = th.dataset.key; sortDir = sortKey === k ? -sortDir : -1; sortKey = k; renderAtlas(main); };
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+  main.querySelectorAll("tbody tr").forEach(tr => {
+    const go = () => { location.hash = "profile/" + tr.dataset.id; };
+    tr.addEventListener("click", go);
+    tr.addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+  });
+}
+
+/* Profile */
+function unitSelect(current, id = "unit-select") {
+  return `<label class="ctl">Society<select id="${id}">${DATA.units.map(u => `<option value="${esc(u.id)}" ${u.id === current ? "selected" : ""}>${esc(u.unit)}, ${esc(u.period)}</option>`).join("")}</select></label>`;
+}
+function renderProfile(main, id) {
+  const u = unitById[id] || DATA.units[0];
+  const myth = Object.entries(u.myth).filter(([, s]) => s >= 0.5).map(([k]) => `<span class="chip">${esc(prettify(k))}</span>`).join("") || '<span class="note">No element present in most runs</span>';
+  const glue = Object.entries(u.glue_counts).sort((a, b) => b[1] - a[1]).map(([k, n], i) => `<span class="chip ${i === 0 ? "primary" : ""}">${esc(prettify(k))} (${n})</span>`).join("");
+  const variants = u.variants.map(v => `<tr><td>${esc(v.model)}</td><td>${esc(v.language)}</td>${ORD.map(d => `<td>${fmt(v[d])}</td>`).join("")}</tr>`).join("");
+  const dims = DATA.dims.map(d => {
+    const e = u.detail[d.id] || {};
+    let valueHtml = "", anchor = "";
+    if (d.type === "ordinal") { valueHtml = `<span class="val">${fmt(u.consensus[d.id])}</span>`; anchor = anchorText(d.id, u.consensus[d.id] ?? 0); }
+    else if (d.type === "multilabel") valueHtml = `<span class="chip primary">${esc(prettify(e.value?.primary))}</span>${(e.value?.secondary || []).map(s => `<span class="chip">${esc(prettify(s))}</span>`).join("")}`;
+    else if (d.type === "flags") valueHtml = Object.entries(e.value || {}).filter(([, v]) => v).map(([k]) => `<span class="chip">${esc(prettify(k))}</span>`).join("") || "none";
+    else if (d.type === "relations") valueHtml = (e.value || []).map(r => `<span class="chip">${esc(r.entity)}, ${esc(r.level)}, ${esc(r.relation)}</span>`).join("") || "none";
+    const extras = ["named_others", "named_project", "rival_narratives"].filter(k => e[k] && e[k].length).map(k => `<p class="reason"><strong>${esc(prettify(k))}.</strong> ${esc(Array.isArray(e[k]) ? e[k].join("; ") : e[k])}</p>`).join("");
+    const ev = (e.evidence || []).map(x => `<li>${esc(x.claim)} <span class="note">(${esc(prettify(x.source_type))}, ${esc(x.source)}, ${esc(x.date)})</span></li>`).join("");
+    return `<div class="dim"><div class="dim-head"><strong>${esc(d.name)}</strong><span class="conf-${esc(e.confidence)}">${esc(e.confidence || "")} confidence</span></div>
+      <div>${valueHtml}</div>${anchor ? `<p class="anchor">${esc(anchor)}</p>` : ""}
+      <p class="reason">${esc(e.reasoning)}</p>${extras}
+      ${ev ? `<details><summary>Evidence (${(e.evidence || []).length})</summary><ul class="evidence">${ev}</ul></details>` : ""}</div>`;
+  }).join("");
+  main.innerHTML = `
+    <div class="controls">${unitSelect(u.id)}</div>
+    <h2>${esc(u.unit)}, ${esc(u.period)}</h2>
+    <p class="note">Evidence cut-off ${esc(u.cutoff)}. Based on ${u.n_profiles} profiles. Closest hypothesised type: ${esc(prettify(u.typology_guess))}.</p>
+    <div class="grid2">
+      <div>
+        <div class="chart-box" id="radar-box"><canvas id="radar" aria-label="Radar chart of dimension codes by perspective"></canvas></div>
+        <p class="note">Each shape is how one perspective codes the society. Gaps between shapes show where groups disagree about who “we” are.</p>
+        <h3>What binds it</h3><div>${glue}</div>
+        <h3>Myth elements in most runs</h3><div>${myth}</div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Summary</h3><p class="summary">${esc(u.summary)}</p>
+        ${u.open_features.length ? `<h3>Features the codebook missed</h3>${u.open_features.map(f => `<p class="reason"><strong>${esc(f.label)}.</strong> ${esc(f.description)}</p>`).join("")}` : ""}
+      </div>
+    </div>
+    <h3>Codes by model and source language</h3>
+    <div class="scroll"><table><thead><tr><th>Model</th><th>Sources</th>${ORD.map(d => `<th>${esc(dimById[d].name)}</th>`).join("")}</tr></thead><tbody>${variants}</tbody></table></div>
+    <h3>Dimension by dimension</h3>${dims}`;
+  $("#unit-select").addEventListener("change", e => { location.hash = "profile/" + e.target.value; });
+  if (!chartDefaults()) return noCharts($("#radar-box"));
+  const pal = PALETTE();
+  const persp = Object.entries(u.perspectives).sort(([a], [b]) => (a === "national" ? -1 : b === "national" ? 1 : a.localeCompare(b)));
+  charts.push(new Chart($("#radar"), {
+    type: "radar",
+    data: {
+      labels: ORD.map(d => dimById[d].name),
+      datasets: persp.map(([p, vals], i) => ({
+        label: p === "national" ? "Whole society" : p,
+        data: ORD.map(d => { const [lo, hi] = scaleRange(d); return vals[d] === null ? null : ((vals[d] - lo) / (hi - lo)) * 4; }),
+        borderColor: pal[i % pal.length], backgroundColor: pal[i % pal.length] + "22", borderWidth: i === 0 ? 2.5 : 1.5, pointRadius: 3,
+      })),
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: { r: { min: 0, max: 4, ticks: { stepSize: 1, display: false }, pointLabels: { font: { size: 12 } } } },
+      plugins: { legend: { position: "bottom" }, tooltip: { callbacks: { label: c => {
+        const d = ORD[c.dataIndex]; const [lo, hi] = scaleRange(d); const raw = c.raw === null ? null : lo + (c.raw / 4) * (hi - lo);
+        return `${c.dataset.label}: ${fmt(raw)}`; } } } },
+    },
+  }));
+}
+
+/* Change over time */
+function renderChange(main, fam) {
+  const fams = {};
+  DATA.units.forEach(u => { (fams[u.family] = fams[u.family] || []).push(u); });
+  const multi = Object.entries(fams).filter(([, us]) => us.length > 1);
+  if (!multi.length) { main.innerHTML = '<h2>Change over time</h2><p class="empty">No society has more than one coded period yet. Add rows to data/countries/dynamics.csv with the same id prefix and run the profiles.</p>'; return; }
+  const current = fams[fam] && fams[fam].length > 1 ? fam : multi[0][0];
+  const us = fams[current].sort((a, b) => a.period.localeCompare(b.period));
+  main.innerHTML = `
+    <div class="controls"><label class="ctl">Society<select id="fam">${multi.map(([f, list]) => `<option value="${esc(f)}" ${f === current ? "selected" : ""}>${esc(list[list.length - 1].unit)} (${list.length} periods)</option>`).join("")}</select></label></div>
+    <h2>How the “us” moved</h2>
+    <p class="note">Each line is one dimension, rescaled from 0 to 4 so they share an axis. A breakdown shows as contestation rising or radius falling between periods.</p>
+    <div class="chart-box tall" id="line-box"><canvas id="line" aria-label="Line chart of dimensions across periods"></canvas></div>
+    <h3>Codes by period</h3>
+    <div class="scroll"><table><thead><tr><th>Period</th><th>Unit</th>${ORD.map(d => `<th>${esc(dimById[d].name)}</th>`).join("")}<th>Main glue</th></tr></thead>
+    <tbody>${us.map(u => `<tr><td>${esc(u.period)}</td><td><a href="#profile/${esc(u.id)}">${esc(u.unit)}</a></td>${ORD.map(d => `<td>${fmt(u.consensus[d])}</td>`).join("")}<td>${esc(prettify(u.glue_primary))}</td></tr>`).join("")}</tbody></table></div>`;
+  $("#fam").addEventListener("change", e => { location.hash = "change/" + e.target.value; });
+  if (!chartDefaults()) return noCharts($("#line-box"));
+  const pal = PALETTE();
+  charts.push(new Chart($("#line"), {
+    type: "line",
+    data: { labels: us.map(u => u.period), datasets: ORD.map((d, i) => ({
+      label: dimById[d].name, borderColor: pal[i % pal.length], backgroundColor: pal[i % pal.length], tension: 0.25, borderWidth: 2,
+      data: us.map(u => { const [lo, hi] = scaleRange(d); const v = u.consensus[d]; return v === null ? null : ((v - lo) / (hi - lo)) * 4; }),
+    })) },
+    options: { maintainAspectRatio: false, scales: { y: { min: 0, max: 4, title: { display: true, text: "Rescaled code (0 low, 4 high)" } } },
+      plugins: { legend: { position: "bottom" } } },
+  }));
+}
+
+/* Typology */
+function renderTypology(main) {
+  const opts = ORD.map(d => `<option value="${d}">${esc(dimById[d].name)}</option>`).join("");
+  main.innerHTML = `
+    <h2>Types of “us”</h2>
+    <p class="note">Societies are clustered on their consensus codes, glue and myth elements. Choose any two dimensions to see how the clusters separate.</p>
+    <div class="controls">
+      <label class="ctl">Horizontal axis<select id="ax">${opts}</select></label>
+      <label class="ctl">Vertical axis<select id="ay">${opts}</select></label>
+    </div>
+    <div class="chart-box tall" id="sc-box"><canvas id="sc" aria-label="Scatter chart of societies by two dimensions"></canvas></div>
+    <h3>Cluster averages</h3>
+    <div class="scroll"><table><thead><tr><th>Cluster</th>${ORD.map(d => `<th>${esc(dimById[d].name)}</th>`).join("")}<th>Members</th></tr></thead>
+    <tbody>${DATA.clusters.map(c => `<tr><td>Cluster ${c.cluster + 1}</td>${ORD.map(d => `<td>${fmt(c.means[d])}</td>`).join("")}<td>${esc(c.members)}</td></tr>`).join("")}</tbody></table></div>
+    <h3>Hypothesised types</h3>
+    <div class="scroll"><table><tbody>${Object.entries(DATA.types).map(([k, v]) => `<tr><td><strong>${esc(prettify(k))}</strong></td><td>${esc(v)}</td></tr>`).join("")}</tbody></table></div>`;
+  const ax = $("#ax"), ay = $("#ay");
+  ax.value = ORD.includes("radius") ? "radius" : ORD[0];
+  ay.value = ORD.includes("orientation") ? "orientation" : ORD[1];
+  const draw = () => {
+    destroyCharts();
+    if (!chartDefaults()) return noCharts($("#sc-box"));
+    const pal = PALETTE();
+    const clusterIds = [...new Set(DATA.units.map(u => u.cluster))].filter(c => c !== null).sort();
+    const jitter = id => ((id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 7) - 3) * 0.04;
+    charts.push(new Chart($("#sc"), {
+      type: "scatter",
+      data: { datasets: clusterIds.map((c, i) => ({
+        label: `Cluster ${c + 1}`, backgroundColor: pal[i % pal.length], borderColor: pal[i % pal.length], pointRadius: 7, pointHoverRadius: 9,
+        data: DATA.units.filter(u => u.cluster === c).map(u => ({ x: (u.consensus[ax.value] ?? 0) + jitter(u.id), y: (u.consensus[ay.value] ?? 0) + jitter(u.id + "y"), label: `${u.unit}, ${u.period}`, id: u.id })),
+      })) },
+      options: {
+        maintainAspectRatio: false,
+        onClick: (_, els) => { if (els.length) { const p = charts[0].data.datasets[els[0].datasetIndex].data[els[0].index]; location.hash = "profile/" + p.id; } },
+        scales: {
+          x: { min: scaleRange(ax.value)[0] - 0.5, max: scaleRange(ax.value)[1] + 0.5, title: { display: true, text: dimById[ax.value].name } },
+          y: { min: scaleRange(ay.value)[0] - 0.5, max: scaleRange(ay.value)[1] + 0.5, title: { display: true, text: dimById[ay.value].name } },
+        },
+        plugins: { legend: { position: "bottom" }, tooltip: { callbacks: { label: c => c.raw.label } } },
+      },
+    }));
+  };
+  ax.addEventListener("change", draw); ay.addEventListener("change", draw); draw();
+}
+
+/* Reliability */
+function renderReliability(main) {
+  const factors = [["runs", "Repeat runs of one model"], ["models", "Different models"], ["languages", "English versus national-language sources"]];
+  const dims = [...ORD, "glue_primary"];
+  const name = d => d === "glue_primary" ? "Main glue" : dimById[d].name;
+  const get = (f, d) => DATA.reliability.find(r => r.factor === f && r.dimension === d);
+  main.innerHTML = `
+    <h2>Can the codes be trusted?</h2>
+    <p class="note">Krippendorff’s alpha measures agreement beyond chance, where 1 is perfect and 0 is no better than random. The working targets are 0.7 for repeat runs and 0.6 for models and languages. Dimensions below target need their anchors rewritten.</p>
+    <div class="chart-box tall" id="rel-box"><canvas id="rel" aria-label="Bar chart of agreement by dimension"></canvas></div>
+    <div class="scroll"><table><thead><tr><th>Dimension</th>${factors.map(([, l]) => `<th>${esc(l)}</th>`).join("")}</tr></thead>
+    <tbody>${dims.map(d => `<tr><td>${esc(name(d))}</td>${factors.map(([f]) => { const r = get(f, d); return `<td>${r && r.alpha !== null ? r.alpha.toFixed(2) : "–"}</td>`; }).join("")}</tr>`).join("")}</tbody></table></div>`;
+  if (!chartDefaults()) return noCharts($("#rel-box"));
+  const pal = PALETTE();
+  const target = { id: "target", afterDraw(c) {
+    const y = c.scales.y.getPixelForValue(0.6); const { left, right } = c.chartArea; const ctx = c.ctx;
+    ctx.save(); ctx.strokeStyle = css("--enemy"); ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(left, y); ctx.lineTo(right, y); ctx.stroke();
+    ctx.fillStyle = css("--enemy"); ctx.font = '12px "Public Sans", sans-serif'; ctx.fillText("Target 0.6", right - 70, y - 6); ctx.restore(); } };
+  charts.push(new Chart($("#rel"), {
+    type: "bar",
+    data: { labels: dims.map(name), datasets: factors.map(([f, l], i) => ({ label: l, backgroundColor: pal[i], data: dims.map(d => get(f, d)?.alpha ?? null) })) },
+    options: { maintainAspectRatio: false, scales: { y: { min: -0.5, max: 1, title: { display: true, text: "Krippendorff’s alpha" } } }, plugins: { legend: { position: "bottom" } } },
+    plugins: [target],
+  }));
+}
+
+/* Codebook */
+function renderCodebook(main) {
+  main.innerHTML = `<h2>Codebook v${esc(DATA.meta.codebook_version)}</h2>
+    <p class="note">Every profile is coded against these definitions. The anchors are the only meanings a code can take.</p>
+    ${DATA.dims.map(d => `<div class="dim"><div class="dim-head"><strong>${esc(d.name)}</strong></div><p class="anchor">${esc(d.question)}</p>
+      <div class="scroll"><table><tbody>${Object.entries(Object.keys(d.scale).length ? d.scale : d.options).map(([k, v]) => `<tr><td style="width:150px"><strong>${esc(prettify(k))}</strong></td><td>${esc(v)}</td></tr>`).join("")}</tbody></table></div></div>`).join("")}`;
+}
+
+/* Router */
+function route() {
+  destroyCharts();
+  const main = $("#main");
+  if (!DATA || !DATA.units?.length) { main.innerHTML = '<p class="empty">No data in this build. Run <code>sou profile</code>, then <code>sou dashboard</code>.</p>'; return; }
+  const [view, arg] = (location.hash.slice(1) || "atlas").split("/");
+  const known = ["atlas", "profile", "change", "typology", "reliability", "codebook"];
+  const v = known.includes(view) ? view : "atlas";
+  document.querySelectorAll("nav.views a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  ({ atlas: () => renderAtlas(main), profile: () => renderProfile(main, decodeURIComponent(arg || "")), change: () => renderChange(main, decodeURIComponent(arg || "")),
+     typology: () => renderTypology(main), reliability: () => renderReliability(main), codebook: () => renderCodebook(main) })[v]();
+  document.title = `${({ atlas: "Atlas", profile: "Profile", change: "Change over time", typology: "Typology", reliability: "Reliability", codebook: "Codebook" })[v]}, Sense of Us atlas`;
+}
+
+if (DATA) {
+  const m = DATA.meta;
+  $("#status").textContent = `${m.n_units} societies, ${m.n_profiles} profiles, built ${m.generated}. Models ${m.models.join(", ")}.`;
+  if (m.demo) $("#banner").innerHTML = '<p class="banner">This build uses randomly generated demo data to show the layout. None of these codes are findings. Run the pilot and rebuild to replace them.</p>';
+}
+window.addEventListener("hashchange", route);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", route);
+route();
+</script>
+</body>
+</html>

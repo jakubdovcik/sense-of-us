@@ -1,0 +1,13 @@
+# Pipeline settings. Model names change over time; check https://docs.claude.com before a run.
+models:
+  - claude-opus-5-5
+  - claude-sonnet-5-5
+runs_per_model: 3          # repeated runs measure stability
+max_tokens: 12000
+temperature: null          # null = API default; set a number only if the model accepts it
+languages:                 # source language emphasis; profiles are always written in English
+  - English
+  - national               # replaced by the country's main language from pilot.csv
+perspectives:
+  - national               # add group names per country in pilot.csv for contested cases
+max_source_chars: 60000    # cap on text from data/sources/<ISO3>/ included in the prompt

@@ -1,0 +1,14 @@
+id,unit,period,cutoff,national_language,perspectives,rationale
+CSK-1990,Czechoslovakia,1990-1992,1992-06-01,Czech and Slovak,national;Czech;Slovak,Peaceful breakdown; hand-coded calibration case
+SVK-2015,Slovakia,2015-2024,2024-12-31,Slovak,national;Hungarian minority,Successor state inside a wider European us
+CZE-2015,Czechia,2015-2024,2024-12-31,Czech,national,Successor state inside a wider European us
+GBR-2010,United Kingdom,2010-2015,2016-01-01,English,national;Scottish;English,Hausmann football and Brexit case; coded before the referendum
+DEU-2015,Germany,2015-2024,2024-12-31,German,national;East German,Hausmann Zollverein case in its modern form
+VEN-1990,Venezuela,1990-1998,1998-12-01,Spanish,national,Coded before Chavez to test hindsight bias
+SGP-2010,Singapore,2010-2019,2019-12-31,English,national,Civic multiracial us; split from Malaysia in 1965
+MYS-2010,Malaysia,2010-2019,2019-12-31,Malay,national;Malay;Chinese Malaysian,Contrast with Singapore
+TZA-2000,Tanzania,2000-2009,2009-12-31,Swahili,national,Classic nation-building case
+KEN-2000,Kenya,2000-2007,2007-12-01,Swahili,national;Kikuyu;Luo,Coded before the 2007 post-election violence
+MAR-2015,Morocco,2015-2024,2024-12-31,Arabic,national;Amazigh,Active Growth Lab engagement; staff can validate
+ZAF-2015,South Africa,2015-2024,2024-12-31,English,national;Afrikaner;Black South African,Past Growth Lab engagement; rainbow nation myth
+NAV-2015,Navajo Nation,2015-2024,2024-12-31,Navajo,national,Optional; non-state us with large diaspora; check with Four Corners team first

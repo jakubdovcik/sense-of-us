@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sense-of-us"
+version = "0.1.0"
+description = "Profiling how societies define 'us', building on Ricardo Hausmann's sense-of-us concept"
+requires-python = ">=3.10"
+dependencies = [
+  "anthropic>=0.40",
+  "pyyaml>=6",
+  "jsonschema>=4",
+  "pandas>=2",
+  "numpy>=1.24",
+  "scikit-learn>=1.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+sou = "sense_of_us.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

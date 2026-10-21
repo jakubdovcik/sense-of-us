@@ -1,0 +1,7 @@
+id,unit,period,cutoff,national_language,perspectives,rationale
+DEU-1834,German Confederation (Zollverein members),1834-1847,1847-12-31,German,national,Arises; customs union before unification
+DEU-1871,German Empire,1871-1890,1890-12-31,German,national;Catholic;Polish minority,Arises; after unification
+YUG-1974,Yugoslavia,1974-1980,1980-05-01,Serbo-Croatian,national;Serb;Croat,Evolves; coded before Tito's death
+YUG-1987,Yugoslavia,1987-1990,1990-12-31,Serbo-Croatian,national;Serb;Croat;Slovene,Breaks down
+VEN-2005,Venezuela,2005-2012,2012-12-31,Spanish,national;opposition,Evolves; chavismo at its peak
+EUU-2015,European Union,2015-2024,2024-12-31,English,national;Eurosceptic,Attempted supersession; supranational us

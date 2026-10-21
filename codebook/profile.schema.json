@@ -1,0 +1,833 @@
+{
+  "type": "object",
+  "required": [
+    "unit",
+    "period",
+    "summary",
+    "dimensions",
+    "open_features",
+    "typology_guess"
+  ],
+  "properties": {
+    "unit": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string",
+      "description": "150 to 250 word narrative of this society's sense of us"
+    },
+    "dimensions": {
+      "type": "object",
+      "required": [
+        "radius",
+        "boundary",
+        "glue",
+        "myth_arc",
+        "orientation",
+        "contestation",
+        "vertical_bond",
+        "salience",
+        "nesting"
+      ],
+      "properties": {
+        "radius": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "boundary": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "glue": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "object",
+              "required": [
+                "primary",
+                "secondary"
+              ],
+              "properties": {
+                "primary": {
+                  "type": "string",
+                  "enum": [
+                    "language",
+                    "religion",
+                    "descent",
+                    "civic",
+                    "founding_struggle",
+                    "anti_colonial",
+                    "external_enemy",
+                    "shared_trauma",
+                    "dynasty",
+                    "territory",
+                    "modernisation",
+                    "ritual_culture",
+                    "other"
+                  ]
+                },
+                "secondary": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "language",
+                      "religion",
+                      "descent",
+                      "civic",
+                      "founding_struggle",
+                      "anti_colonial",
+                      "external_enemy",
+                      "shared_trauma",
+                      "dynasty",
+                      "territory",
+                      "modernisation",
+                      "ritual_culture",
+                      "other"
+                    ]
+                  },
+                  "maxItems": 3
+                }
+              }
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "myth_arc": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "object",
+              "required": [
+                "origin",
+                "golden_age",
+                "fall",
+                "chosen_trauma",
+                "redemption",
+                "heroes",
+                "mission"
+              ],
+              "properties": {
+                "origin": {
+                  "type": "boolean"
+                },
+                "golden_age": {
+                  "type": "boolean"
+                },
+                "fall": {
+                  "type": "boolean"
+                },
+                "chosen_trauma": {
+                  "type": "boolean"
+                },
+                "redemption": {
+                  "type": "boolean"
+                },
+                "heroes": {
+                  "type": "boolean"
+                },
+                "mission": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "orientation": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence",
+            "named_others",
+            "named_project"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                -2,
+                -1,
+                0,
+                1,
+                2
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            },
+            "named_others": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Groups or states cast as 'them' (list)"
+            },
+            "named_project": {
+              "type": "string",
+              "description": "The shared project, if any (text)"
+            }
+          }
+        },
+        "contestation": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence",
+            "rival_narratives"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            },
+            "rival_narratives": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Each rival narrative, who holds it and its rough weight (list)"
+            }
+          }
+        },
+        "vertical_bond": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "salience": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nesting": {
+          "type": "object",
+          "required": [
+            "value",
+            "confidence",
+            "reasoning",
+            "evidence"
+          ],
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "level",
+                  "entity",
+                  "relation"
+                ],
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "enum": [
+                      "subnational",
+                      "supranational"
+                    ]
+                  },
+                  "entity": {
+                    "type": "string"
+                  },
+                  "relation": {
+                    "type": "string",
+                    "enum": [
+                      "nested",
+                      "competing",
+                      "absent"
+                    ]
+                  }
+                }
+              }
+            },
+            "confidence": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Two to four sentences justifying the code"
+            },
+            "evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "claim",
+                  "source_type",
+                  "source",
+                  "date"
+                ],
+                "properties": {
+                  "claim": {
+                    "type": "string"
+                  },
+                  "source_type": {
+                    "type": "string",
+                    "enum": [
+                      "constitution",
+                      "anthem_or_symbol",
+                      "textbook_or_curriculum",
+                      "speech",
+                      "law_or_policy",
+                      "survey",
+                      "scholarship",
+                      "press",
+                      "other"
+                    ]
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Specific document, clause, speech or study"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Year or date of the source (YYYY or YYYY-MM-DD)"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "open_features": {
+      "type": "array",
+      "description": "Unifying features or myths the codebook does not capture",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "description"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "typology_guess": {
+      "type": "string",
+      "enum": [
+        "civic_project",
+        "ethnic_defensive",
+        "revolutionary",
+        "dynastic_religious",
+        "consociational",
+        "thin_state",
+        "none_fits"
+      ]
+    }
+  }
+}
