@@ -6,7 +6,7 @@ This repository is a research project on Ricardo Hausmann's concept of the "sens
 
 1. Check `gh auth status`. If not logged in, stop and ask the user to run `gh auth login` themselves. Never handle tokens or passwords.
 2. Create a virtual environment, run `pip install -e ".[dev]"`, then `pytest -q`. All tests must pass.
-3. Run `sou dashboard --demo` and open `site/index.html` in a browser to confirm the dashboard renders (it needs internet for fonts and the chart library).
+3. Run `sou dashboard --demo` and open `site/index.html` in a browser to confirm the dashboard renders (it needs internet for the chart library).
 4. Run `git init -b main`, commit everything with the message `Initial scaffold`, then create a **private** repository and push it with `gh repo create sense-of-us --private --source=. --remote=origin --push`.
 5. Before switching on GitHub Pages, ask the user two questions and wait for the answers.
    - The published dashboard is visible to anyone with the link, even when the repository is private. Is that acceptable?
@@ -20,7 +20,7 @@ If a workflow fails because an action version is deprecated, update it to the cu
 
 `sou dashboard` reads every valid profile in `data/profiles/`, computes consensus codes, reliability and clusters, injects the result into `dashboard/template.html`, and writes `site/index.html` plus `site/data.json`. With no real profiles it falls back to random demo data and shows a banner saying so. The `dashboard` workflow runs this on every push to `main`, so committing new profiles updates the published atlas. `site/` is not committed.
 
-The template is one self-contained HTML file using Public Sans and Chart.js 4.4.1 from cdnjs. Views are Atlas (sortable heatmap), Profile (radar by perspective, codes by model and language, reasoning and evidence per dimension), Change over time, Typology, Reliability and Codebook. Keep the existing visual language when adding views.
+The template is one self-contained HTML file in a retro terminal style (Courier New, a window frame with a title bar, an ASCII-art title and a working `sou:` command prompt) using Chart.js 4.4.1 from cdnjs. Views are Atlas (sortable heatmap), Profile (radar by perspective, codes by model and language, reasoning and evidence per dimension), Change over time, Typology, Reliability and Codebook. Keep the existing visual language when adding views.
 
 ## Layout
 
