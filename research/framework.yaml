@@ -1,0 +1,581 @@
+# Research design for the Sense of Us project.
+# Single source of truth for the research questions, how each is assessed and where the data comes from.
+# The dashboard and docs/RESEARCH_DESIGN.md are generated from this file (`sou framework-md`).
+# Dimension ids must match codebook/codebook.yaml. Source names are listed from memory: check links and access terms before use.
+
+title: Sense of Us research design
+version: "0.2"
+
+aim: >-
+  Find out how societies define who "we" are, how that definition is made, lived and changed,
+  and whether it shapes a society's ability to cooperate, build state capacity and accumulate knowhow.
+
+central_question: How do societies answer who "we" are, and does the answer matter for cooperation and prosperity?
+
+strands:
+  - id: comparative
+    name: Comparative strand
+    summary: >-
+      Codes 50 societies on nine dimensions with one codebook, using AI profiles checked by human experts
+      and survey data. It answers "how much" and "what kind", and makes societies comparable.
+    produces: Scores per dimension, a typology, coded transitions over time, hypothesis tests
+  - id: interpretive
+    name: Ethnography and culture strand
+    summary: >-
+      Studies how the "us" is lived, felt, performed and argued about in everyday life, through ethnography,
+      interviews and works of culture. It answers "how" and "why", and catches what the codes flatten.
+    produces: Readings of particular societies, sites and works, new categories, mechanisms, challenges to the codes
+
+strand_links:
+  - from: interpretive
+    to: comparative
+    how: Readings that contradict a code trigger recoding or a revision of the anchors
+  - from: interpretive
+    to: comparative
+    how: Features found in three or more readings become candidate codebook categories
+  - from: comparative
+    to: interpretive
+    how: Large myth gaps, disagreements between coders and surprising clusters point to where fieldwork is most needed
+  - from: interpretive
+    to: comparative
+    how: Readings explain the mechanisms behind statistical links, such as how schooling or football widens the radius
+
+research_questions:
+  - id: RQ1
+    name: Describe
+    question: What is each society's operative sense of us, dimension by dimension?
+    assessed: Ordinal and categorical codes from the codebook, from AI profiles and blind expert ratings, reported with agreement scores
+    data: Primary source packs, AI profiles, expert rating forms, survey items listed per dimension
+  - id: RQ2
+    name: Classify
+    question: Which types of "us" exist, and which societies belong to each?
+    assessed: Clustering on consensus codes, reconciled with six hypothesised types and with categories found in open coding and readings
+    data: Consensus codes for all societies, open features, readings
+  - id: RQ3
+    name: Explain change
+    question: How does a sense of us arise, evolve, break down or get superseded, and what triggers each change?
+    assessed: Coded transitions between consecutive periods using the rules in FRAMEWORK.md section 8, with triggers coded per transition
+    data: Period profiles with evidence cut-offs, conflict and event data, historiography, oral histories
+  - id: RQ4
+    name: Link to outcomes
+    question: Does the sense of us predict cooperation, openness, state capacity and growth beyond existing measures?
+    assessed: Hypotheses H1 to H8, and the redundancy test against fractionalisation, trust, democracy and income
+    data: Outcome datasets listed under each hypothesis
+  - id: RQ5
+    name: Understand lived experience
+    question: How is the "us" made, felt, performed and contested in everyday life and in culture?
+    assessed: Interpretive readings using a shared template, judged on transparency, triangulation and reflexivity rather than scores
+    data: Ethnographies, interviews, fieldwork, literature, film, music, ritual, monuments, humour and digital culture
+
+layers:
+  - id: narrative
+    name: Narrative
+    shows: What the society says about itself
+    method: Document analysis by AI and human coders
+  - id: institutional
+    name: Institutional
+    shows: What the rules encode
+    method: Coding of laws and policies, existing indices
+  - id: behavioural
+    name: Behavioural
+    shows: What people report and do, in aggregate
+    method: Surveys and administrative data
+  - id: lived
+    name: Lived
+    shows: How the "us" is experienced and performed in everyday life and culture
+    method: Ethnography, interviews and close reading of cultural works
+
+assessment:
+  - step: Code
+    detail: Each dimension gets a code from narrative and institutional evidence, from AI profiles and from two blind expert raters.
+  - step: Measure
+    detail: Where survey data exists, the same dimension gets a behavioural score from the items listed below.
+  - step: Compare
+    detail: The myth gap is the distance between the narrative and behavioural scores. Large gaps are findings, not errors.
+  - step: Read
+    detail: Readings from the ethnography and culture strand say whether lived evidence supports, complicates or contradicts each code.
+  - step: Check
+    detail: Agreement targets are alpha above 0.7 for repeat runs and 0.6 for models, languages and experts. Dimensions that miss them get new anchors.
+  - step: Revise
+    detail: Contradicting readings, open features and weak agreement feed the codebook revision rules in FRAMEWORK.md section 7.
+
+dimensions:
+  radius:
+    questions:
+      - When people say "we", whom do they include without thinking?
+      - Which groups inside the state are spoken of as "them"?
+      - Does solidarity reach citizens in other regions, for example through transfers?
+    layers:
+      narrative:
+        look_at: Who "the people" are in the constitution preamble, the anthem and founding speeches
+        sources: Constitute Project, official anthem texts, speech archives
+      institutional:
+        look_at: Birthright citizenship rules, official languages, fiscal equalisation between regions
+        sources: GLOBALCIT, national fiscal data
+      behavioural:
+        look_at: National versus ethnic self-identification; how much being born in the country matters; intermarriage across groups
+        sources: Afrobarometer, ISSP National Identity, Pew Research Center, IPUMS International
+      lived:
+        look_at: Who is invited to weddings and funerals; how "we" is used in daily talk; jokes about other regions; mixed neighbourhoods
+        sources: Ethnographies, interviews, eHRAF World Cultures, oral history archives
+  boundary:
+    questions:
+      - How long and how hard is it for an outsider to become a citizen?
+      - Are the children of migrants treated as part of "us"?
+      - Which jobs and roles are reserved for nationals, formally or informally?
+    layers:
+      narrative:
+        look_at: How migrants and newcomers appear in textbooks, speeches and national stories
+        sources: Textbook collections, speech archives, Manifesto Project
+      institutional:
+        look_at: Residence requirement for naturalisation, dual citizenship, reserved professions
+        sources: GLOBALCIT, MIPEX, labour codes
+      behavioural:
+        look_at: Acceptance of migrants as neighbours, colleagues and family; naturalisation rates
+        sources: World Values Survey, European Social Survey, Gallup Migrant Acceptance Index, OECD migration statistics
+      lived:
+        look_at: Experiences of naturalised citizens and the second generation; citizenship ceremonies; migrant literature and film
+        sources: Interviews, ethnographies of migrant neighbourhoods, novels and films by migrant authors
+  glue:
+    questions:
+      - What do people say makes someone truly one of "us"?
+      - Which bond do leaders reach for in a crisis?
+      - Which bond do schools teach, and which do families pass on?
+    layers:
+      narrative:
+        look_at: Symbols, holidays, banknote and coin imagery, anthem themes
+        sources: Central bank banknote descriptions, official holiday calendars, anthem texts
+      institutional:
+        look_at: Status of religion and language in law, civic education, compulsory service
+        sources: Religion and State project, language laws, national curricula
+      behavioural:
+        look_at: Survey items on what matters for being truly national, such as birth, language, religion, customs or respecting the laws
+        sources: ISSP National Identity, Pew Research Center
+      lived:
+        look_at: Rituals, festivals, food, sport and music that people treat as shared property
+        sources: Fieldwork at festivals and matches, ethnographies, popular culture
+  myth_arc:
+    questions:
+      - Which origin story do schools teach?
+      - Which past is golden and which wound is chosen?
+      - Are the heroes shared by all groups, or owned by one?
+    layers:
+      narrative:
+        look_at: History textbooks, museum displays, monuments, commemorative calendars
+        sources: Georg Eckert Institute textbook collections, museum catalogues, monument registers
+      institutional:
+        look_at: Memory laws, legislated holidays, state funding for commemoration
+        sources: Legal databases, national budgets
+      behavioural:
+        look_at: Pride in national history; which events and figures people name as most important
+        sources: ISSP National Identity, national history surveys
+      lived:
+        look_at: How myths are retold in families, films, novels and songs; disputes over monuments and street names
+        sources: Oral histories, literary canon and school reading lists, film archives, OpenStreetMap street names
+  orientation:
+    questions:
+      - Is the "us" defined by what we build together or by whom we oppose?
+      - Who is named as "them", and how often?
+      - Is there a shared project that people can name?
+    layers:
+      narrative:
+        look_at: Enemy and project framing in speeches, manifestos and news
+        sources: Manifesto Project, Media Cloud, GDELT, speech archives
+      institutional:
+        look_at: Conscription, military spending, national development plans
+        sources: SIPRI Military Expenditure Database, development plan documents
+      behavioural:
+        look_at: Threat perceptions and views of other countries; support for national projects
+        sources: Pew Research Center global surveys, regional barometers
+      lived:
+        look_at: Villains in popular film and television, sporting rivalries, jokes about neighbours, war memorial practice
+        sources: Box office and broadcast schedules, fieldwork at matches and commemorations
+  contestation:
+    questions:
+      - How many stories of "us" compete, and who holds each one?
+      - Is there a movement for autonomy or secession?
+      - Do groups attend the same schools, read the same media and celebrate the same days?
+    layers:
+      narrative:
+        look_at: Rival histories, minority-language media, regionalist and separatist manifestos
+        sources: Manifesto Project, minority media archives
+      institutional:
+        look_at: Autonomy arrangements, power-sharing rules, groups excluded from power
+        sources: Ethnic Power Relations, Regional Authority Index, V-Dem
+      behavioural:
+        look_at: Regional versus national identity (the Moreno question); regionalist vote shares; armed conflict
+        sources: Regional surveys, election results, UCDP
+      lived:
+        look_at: Parallel festivals and schools, which flags are flown where, everyday life in divided towns
+        sources: Ethnographies of divided towns, fieldwork, interviews
+  vertical_bond:
+    questions:
+      - Do elites use the same schools, hospitals and public services as everyone else?
+      - Do ordinary people trust experts, officials and scientists?
+      - Do elites speak the language and share the pastimes of ordinary people?
+    layers:
+      narrative:
+        look_at: How leaders talk about "the people" and "the elite"; populist rhetoric
+        sources: Global Populism Database, speech archives
+      institutional:
+        look_at: Share of private schooling and private health care; universality of service
+        sources: OECD PISA, WHO health expenditure data, national statistics
+      behavioural:
+        look_at: Trust in the civil service, science and courts; populist vote share
+        sources: World Values Survey, Wellcome Global Monitor, PopuList
+      lived:
+        look_at: Where elites live, study and holiday; satire and comedy about elites; encounters across class
+        sources: Ethnographies of elite schools and neighbourhoods, satirical media, interviews
+  salience:
+    questions:
+      - How often and how strongly is the nation invoked?
+      - Would people make sacrifices for it?
+      - Is the nation felt every day or only at ceremonies?
+    layers:
+      narrative:
+        look_at: Frequency of national references in media and books over time
+        sources: Media Cloud, Google Books Ngram Viewer
+      institutional:
+        look_at: Flag laws, number of national holidays, compulsory service
+        sources: Legal databases, official holiday calendars
+      behavioural:
+        look_at: National pride, closeness to the country, willingness to fight for it
+        sources: World Values Survey, ISSP National Identity
+      lived:
+        look_at: Flags in daily life, crowds at national matches, consumption of national brands, the banal nationalism of everyday objects
+        sources: Fieldwork, photo documentation, ethnographies
+  nesting:
+    questions:
+      - How do local, regional, national and supranational loyalties fit together?
+      - Do gains for one level feel like losses for another?
+    layers:
+      narrative:
+        look_at: References to regional and supranational belonging in official texts and speeches
+        sources: Constitute Project, speech archives
+      institutional:
+        look_at: Regional autonomy, membership of supranational bodies
+        sources: Regional Authority Index, treaty records
+      behavioural:
+        look_at: Dual identity items, for example "national only", "national and European", "European only"
+        sources: Eurobarometer, regional surveys, Moreno question
+      lived:
+        look_at: Dual flags, border regions, diaspora life, people who move between levels
+        sources: Ethnographies of border regions and diasporas, interviews
+
+change_questions:
+  - question: When did the current "us" take shape, and what made it?
+    assessed: Arises transition, with coded triggers
+  - question: What changed in its glue or orientation, and why?
+    assessed: Evolves transition
+  - question: Which pressures pulled it apart?
+    assessed: Breaks down transition, rising contestation, narrowing radius
+  - question: Did a sub-national or supranational "us" take over?
+    assessed: Is superseded transition, nesting
+change_data: Period profiles with cut-offs, UCDP, GDELT, historiography, oral histories, readings of how people remember each change
+
+hypotheses:
+  - id: H1
+    claim: Wider radius predicts more openness to skilled migration, holding income constant
+    outcome: Reserved professions, naturalisation rules, skilled-visa rates
+    data: Labour codes, GLOBALCIT, Growth Lab migration openness measure
+  - id: H2
+    claim: Enemy orientation raises short-run mobilisation but lowers long-run complexity growth
+    outcome: Tax effort, conscription; change in economic complexity over 20 years
+    data: Atlas of Economic Complexity, tax data
+  - id: H3
+    claim: Higher contestation lowers state capacity and public-goods provision
+    outcome: State capacity indices
+    data: V-Dem, Hanson and Sigman capacity index
+  - id: H4
+    claim: A weaker elite–mass bond predicts lower trust in experts and higher populist vote share
+    outcome: Trust in science and civil service; populist vote
+    data: World Values Survey, PopuList
+  - id: H5
+    claim: Falling acceptance of interregional transfers precedes breakdowns
+    outcome: Regional party fragmentation, transfer disputes
+    data: Regional election and fiscal data
+  - id: H6
+    claim: Shocks that widen the "us" precede growth accelerations
+    outcome: Growth acceleration episodes
+    data: Hausmann, Pritchett and Rodrik acceleration dates
+  - id: H7
+    claim: Large myth gaps predict breakdowns better than levels
+    outcome: Secession, civil conflict
+    data: UCDP, secession movement data
+  - id: H8
+    claim: A civic "us" is more compatible with openness than an ethnic one under economic stress
+    outcome: Migration policy change during recessions
+    data: Policy change logs
+
+interpretive:
+  purpose: >-
+    Codes say how wide, how open or how contested an "us" is. They cannot say what it feels like to belong,
+    how belonging is taught at a kitchen table or a football stadium, or why a minority laughs at a different joke.
+    This strand keeps room for that kind of knowledge and makes it talk back to the codes.
+  roles:
+    - name: Validate
+      detail: Check whether the coded "us" matches the lived one, and flag where it does not
+    - name: Discover
+      detail: Find features of belonging the codebook has no category for
+    - name: Explain
+      detail: Show the mechanisms through which an "us" is made, kept or lost
+  questions:
+    - How do people say "we" in everyday speech, and whom does it include in practice?
+    - Where and how is the nation performed, in rituals, holidays, ceremonies and sport?
+    - What do novels, films, songs and television imagine "us" to be, and who is missing from them?
+    - How are founding myths passed on, through family, school, church and media, and who disputes them?
+    - What is it like to live on the boundary, as a migrant, minority member, returnee or member of the diaspora?
+    - Which jokes, stereotypes and embarrassments do insiders share and hide from outsiders?
+    - Which places hold the nation's memory, and how do they change when monuments or street names change?
+    - Where do elites and ordinary people meet, and where do they avoid each other?
+  materials:
+    - name: Ethnographies and field studies
+      examples: Published monographs and articles on everyday national life, minorities, borders and migration
+    - name: Literature
+      examples: National canon, school reading lists, bestsellers, migrant and minority writing
+    - name: Film and television
+      examples: Top domestic films, state broadcaster series, comedies, war films
+    - name: Music
+      examples: Anthems, patriotic and protest songs, popular hits, national song contests
+    - name: Visual and material culture
+      examples: Banknotes, stamps, monuments, street names, museum displays, posters
+    - name: Ritual and festival
+      examples: National holidays, parades, commemorations, religious feasts with national meaning
+    - name: Sport
+      examples: National teams, rivalries, crowds, chants
+    - name: Food
+      examples: National dishes, disputes over the origin of dishes, what is served at state occasions
+    - name: Humour
+      examples: Jokes about neighbours and regions, satire, sitcoms
+    - name: Digital culture
+      examples: Memes, hashtags, online communities, comment sections
+    - name: Life stories
+      examples: Oral histories, memoirs, diaries, family archives
+  methods:
+    - name: Participant observation
+      use: Festivals, matches, schools, commemorations, citizenship ceremonies, border crossings
+    - name: Semi-structured interviews
+      use: A shared interview guide built on the nine dimensions, so answers can be compared across societies
+    - name: Elicitation
+      use: Showing photos, songs, banknotes or film clips and asking what they mean and to whom
+    - name: Close reading
+      use: Interpretation of novels, films and songs for who counts as "us" and who is "them"
+    - name: Content and discourse analysis
+      use: Systematic coding of larger sets of cultural texts, such as all films in a domestic top ten over a decade
+    - name: Archival and oral history work
+      use: How earlier generations described the "us", for the change-over-time questions
+    - name: Digital ethnography
+      use: Online communities where belonging is argued about
+    - name: Mapping
+      use: Street names, monuments and flags across a city or region
+  assessment: >-
+    Readings are not scored from 0 to 4. Each one states, for each dimension it speaks to, whether the evidence
+    supports, complicates or contradicts the current code, or points to something new. Readings are judged on
+    the quality criteria below. A dimension with two or more contradicting readings from different materials
+    is flagged for recoding.
+  stances:
+    supports: Lived evidence matches the coded value
+    complicates: Matches in part, or only for some groups, places or times
+    contradicts: Lived evidence points to a different value
+    new: Shows something the codebook has no category for
+  quality:
+    - Every source is named and checkable; nothing is invented or paraphrased as a quotation
+    - Claims rest on at least two kinds of material or method
+    - The researcher states their position, languages and relationship to the society
+    - Where possible, people from the society read the interpretation and respond
+    - The reading says whose "us" it describes, and whose it leaves out
+    - Fieldwork follows the ethics approval and consent rules of the researcher's institution
+  template_fields:
+    - name: Title
+      detail: Short and specific
+    - name: Society and period
+      detail: A unit id from data/countries, or a new society or sub-national community
+    - name: Site
+      detail: The town, institution, event or body of work studied
+    - name: Materials and methods
+      detail: From the lists above
+    - name: Dimensions and stance
+      detail: For each dimension the reading speaks to, supports, complicates, contradicts or new
+    - name: Summary
+      detail: Three to five sentences
+    - name: Observations
+      detail: Thick description of what was seen, heard or read
+    - name: Who is in and who is out
+      detail: The "us" and "them" in this material
+    - name: What the codebook misses
+      detail: Candidate new categories
+    - name: Sources
+      detail: Full references, all checked
+    - name: Position and confidence
+      detail: Researcher position and how confident the reading is
+  starter_studies:
+    - title: Czech and Slovak "we" before and after 1993
+      unit: CSK-1990
+      idea: Compare how Czechs and Slovaks talked about the common state in jokes, television comedy and memoirs before the split, and how they remember it now
+      materials: Humour, film and television, life stories
+    - title: Bilingual towns in southern Slovakia
+      unit: SVK-2015
+      idea: Fieldwork in towns with a large Hungarian minority on signs, schools, festivals and which national matches people watch
+      materials: Participant observation, interviews, mapping
+    - title: The national team as the "us"
+      unit: any
+      idea: Observe crowds, chants and media coverage around a major tournament, to test whether shared sporting moments widen the radius
+      materials: Sport, digital culture, participant observation
+    - title: Banknotes and street names
+      unit: any
+      idea: Map whose faces and names a country puts on money and streets, and how that changed after regime changes
+      materials: Visual and material culture, mapping, archival work
+    - title: Second-generation lives
+      unit: any
+      idea: Life-story interviews with children of migrants on when, where and by whom they are treated as one of "us"
+      materials: Life stories, interviews
+  reading_list:
+    note: From memory; verify each reference before citing it.
+    items:
+      - Ernest Renan, "What Is a Nation?" (1882)
+      - Clifford Geertz, "The Integrative Revolution" (1963)
+      - Eric Hobsbawm and Terence Ranger (eds), The Invention of Tradition (1983)
+      - Benedict Anderson, Imagined Communities (1983)
+      - Pierre Nora (ed.), Les Lieux de mémoire (1984–1992)
+      - Thomas Hylland Eriksen, Ethnicity and Nationalism (1993)
+      - Partha Chatterjee, The Nation and Its Fragments (1993)
+      - Michael Billig, Banal Nationalism (1995)
+      - Michael Herzfeld, Cultural Intimacy (1997)
+      - Katherine Verdery, The Political Lives of Dead Bodies (1999)
+      - Tim Edensor, National Identity, Popular Culture and Everyday Life (2002)
+      - Rogers Brubaker and others, Nationalist Politics and Everyday Ethnicity in a Transylvanian Town (2006)
+      - Jon Fox and Cynthia Miller-Idriss, "Everyday Nationhood", Ethnicities (2008)
+
+sources:
+  - name: Constitute Project and Comparative Constitutions Project
+    layer: narrative
+    measures: Constitution texts and coded constitutional features
+    access: Free
+  - name: Manifesto Project
+    layer: narrative
+    measures: Coded party manifestos, including national way of life categories
+    access: Free with registration
+  - name: Georg Eckert Institute textbook collections
+    layer: narrative
+    measures: School textbooks, including historical ones
+    access: Free online for digitised items
+  - name: Media Cloud
+    layer: narrative
+    measures: News coverage and framing over time
+    access: Free with registration
+  - name: GDELT
+    layer: narrative
+    measures: Global news events and tone
+    access: Free
+  - name: Google Books Ngram Viewer
+    layer: narrative
+    measures: Word frequency in books over time
+    access: Free
+  - name: Global Populism Database
+    layer: narrative
+    measures: Populism scores for leaders' speeches
+    access: Free
+  - name: GLOBALCIT
+    layer: institutional
+    measures: Citizenship laws and indicators
+    access: Free
+  - name: MIPEX
+    layer: institutional
+    measures: Migrant integration policies
+    access: Free
+  - name: Ethnic Power Relations
+    layer: institutional
+    measures: Which ethnic groups hold or are excluded from power
+    access: Free
+  - name: Regional Authority Index
+    layer: institutional
+    measures: Self-rule and shared rule of regions
+    access: Free
+  - name: Religion and State project
+    layer: institutional
+    measures: State support for and regulation of religion
+    access: Free
+  - name: V-Dem
+    layer: institutional
+    measures: Democracy, state capacity and civil society indicators
+    access: Free
+  - name: SIPRI Military Expenditure Database
+    layer: institutional
+    measures: Military spending
+    access: Free
+  - name: Hanson and Sigman capacity index
+    layer: institutional
+    measures: State capacity
+    access: Free
+  - name: World Values Survey and European Values Study
+    layer: behavioural
+    measures: National pride, willingness to fight, trust, attitudes to migrants
+    access: Free with registration
+  - name: ISSP National Identity module
+    layer: behavioural
+    measures: What matters for being truly national, pride, closeness to the country
+    access: Free with registration
+  - name: Regional barometers
+    layer: behavioural
+    measures: Afrobarometer, Arab Barometer, Asian Barometer, Latinobarómetro, AmericasBarometer, Eurobarometer
+    access: Mostly free with registration
+  - name: European Social Survey
+    layer: behavioural
+    measures: Attitudes to immigration and trust
+    access: Free with registration
+  - name: Pew Research Center global surveys
+    layer: behavioural
+    measures: Views of national identity and other countries
+    access: Free with registration
+  - name: Gallup World Poll
+    layer: behavioural
+    measures: Migrant Acceptance Index and wellbeing
+    access: Paid licence; published indices free
+  - name: Wellcome Global Monitor
+    layer: behavioural
+    measures: Trust in science and scientists
+    access: Free
+  - name: IPUMS International
+    layer: behavioural
+    measures: Census microdata, including intermarriage
+    access: Free with registration
+  - name: PopuList
+    layer: behavioural
+    measures: Classification of populist parties
+    access: Free
+  - name: UCDP
+    layer: behavioural
+    measures: Armed conflict
+    access: Free
+  - name: Atlas of Economic Complexity
+    layer: behavioural
+    measures: Economic complexity and growth outcomes
+    access: Free
+  - name: eHRAF World Cultures
+    layer: lived
+    measures: Indexed ethnographic texts by culture and topic
+    access: Institutional subscription
+  - name: Published ethnographies
+    layer: lived
+    measures: Monographs and articles on everyday national life
+    access: University libraries
+  - name: Film, literature and music archives
+    layer: lived
+    measures: National film archives, box office data, national libraries, charts and song contests
+    access: Varies by country
+  - name: Oral history and memoir archives
+    layer: lived
+    measures: Life stories across generations
+    access: Varies by archive
+  - name: OpenStreetMap
+    layer: lived
+    measures: Street names, monuments and memorials
+    access: Free
+  - name: Internet Archive
+    layer: lived
+    measures: Archived websites and digital culture
+    access: Free
+  - name: Own fieldwork
+    layer: lived
+    measures: Observation, interviews and elicitation by project researchers
+    access: Needs ethics approval

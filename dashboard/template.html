@@ -51,7 +51,27 @@ dl.info dd { margin: 0; overflow-wrap: anywhere; }
 .banner { background: var(--banner); color: var(--banner-ink); border: 1px dashed currentColor; padding: 8px 12px; margin: 16px 0 0; max-width: 80ch; }
 .banner::before { content: "Note: "; font-weight: bold; }
 
-nav.views { display: flex; gap: 4px 24px; flex-wrap: wrap; margin: 20px 0 0; padding: 8px 0; border-top: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); position: sticky; top: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 5; }
+.navrow { display: flex; gap: 2px 22px; flex-wrap: wrap; align-items: baseline; }
+.navlabel { color: var(--muted); min-width: 8ch; }
+.navlabel::after { content: ":"; }
+pre.diagram { font: inherit; font-size: 0.82rem; line-height: 1.3; margin: 0; white-space: pre; }
+.grid2.even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 860px) { .grid2.even { grid-template-columns: 1fr; } }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.box { border: 1px dashed var(--rule); padding: 12px 14px; }
+.box p { margin: 6px 0 0; }
+ul.plain { padding-left: 2ch; list-style: "- "; margin: 6px 0; max-width: 80ch; }
+ol.steps { padding-left: 4ch; max-width: 80ch; margin: 6px 0; }
+ul.plain li, ol.steps li { margin: 4px 0; }
+.open-space { border: 1px dashed var(--ink); padding: 12px 16px; max-width: 80ch; }
+.open-space ol { margin: 6px 0 0; padding-left: 4ch; }
+pre.body { white-space: pre-wrap; font: inherit; font-size: 0.9rem; margin: 8px 0 0; }
+td small { display: block; color: var(--muted); }
+td.nowrap { white-space: nowrap; }
+.stance-supports { color: var(--project); } .stance-contradicts { color: var(--enemy); }
+.stance-complicates { color: var(--muted); } .stance-new { color: var(--low); }
+code { font: inherit; background: var(--mid); padding: 0 3px; }
+nav.views { display: grid; gap: 4px; margin: 20px 0 0; padding: 8px 0; border-top: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); position: sticky; top: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 5; }
 nav.views a::before { content: ". "; color: var(--muted); }
 nav.views a[aria-current="page"] { color: var(--ink); font-weight: bold; text-decoration: none; }
 nav.views a[aria-current="page"]::before { content: "> "; color: var(--ink); }
@@ -89,6 +109,8 @@ td.name small { display: block; font-weight: normal; color: var(--muted); font-s
 .controls { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; margin: 0 0 18px; }
 label.ctl { font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
 select { font: inherit; padding: 5px 8px; border: 1px solid var(--frame); border-radius: 0; background: var(--paper); color: var(--ink); max-width: 100%; }
+section.dim { scroll-margin-top: 110px; }
+@media (max-width: 640px) { nav.views { position: static; } section.dim { scroll-margin-top: 0; } }
 .dim { border-top: 1px dashed var(--rule); padding: 14px 0; }
 .dim-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
 .val { font-weight: bold; font-size: 1.2rem; }
@@ -124,18 +146,26 @@ ul.evidence { margin: 6px 0 0; padding-left: 18px; font-size: 0.9rem; list-style
 / __| __| \| / __| __|  / _ \| __| | | | / __|
 \__ \ _|| .` \__ \ _|  | (_) | _|  | |_| \__ \
 |___/___|_|\_|___/___|  \___/|_|    \___/|___/</pre>
-      <p class="lede">How societies answer who “we” are, what binds “us”, and what “we” are for or against. Codes come from AI-generated profiles checked against a shared codebook and human raters.</p>
+      <p class="lede">A research framework for how societies answer who “we” are, what binds “us”, and what “we” are for or against. It pairs a comparative coding of societies with ethnography and the study of culture.</p>
     </div>
     <dl class="info" id="status"></dl>
   </header>
   <div id="banner"></div>
   <nav class="views" aria-label="Views">
-    <a href="#atlas" data-view="atlas">Atlas</a>
-    <a href="#profile" data-view="profile">Profile</a>
-    <a href="#change" data-view="change">Change over time</a>
-    <a href="#typology" data-view="typology">Typology</a>
-    <a href="#reliability" data-view="reliability">Reliability</a>
-    <a href="#codebook" data-view="codebook">Codebook</a>
+    <div class="navrow"><span class="navlabel">design</span>
+      <a href="#framework" data-view="framework">Framework</a>
+      <a href="#questions" data-view="questions">Questions</a>
+      <a href="#culture" data-view="culture">Ethnography and culture</a>
+      <a href="#sources" data-view="sources">Data sources</a>
+      <a href="#codebook" data-view="codebook">Codebook</a>
+    </div>
+    <div class="navrow"><span class="navlabel">preview</span>
+      <a href="#atlas" data-view="atlas">Atlas</a>
+      <a href="#profile" data-view="profile">Profile</a>
+      <a href="#change" data-view="change">Change over time</a>
+      <a href="#typology" data-view="typology">Typology</a>
+      <a href="#reliability" data-view="reliability">Reliability</a>
+    </div>
   </nav>
   <main id="main" tabindex="-1"></main>
 </div>
@@ -264,6 +294,8 @@ function renderProfile(main, id) {
     </div>
     <h3>Codes by model and source language</h3>
     <div class="scroll"><table><thead><tr><th>Model</th><th>Sources</th>${ORD.map(d => `<th>${esc(dimById[d].name)}</th>`).join("")}</tr></thead><tbody>${variants}</tbody></table></div>
+    <h3>Readings on this society</h3>
+    ${READINGS.filter(r => r.unit === u.id).map(readingBlock).join("") || '<p class="note">No ethnographic or cultural readings yet. See <a href="#culture">Ethnography and culture</a> for how to add one.</p>'}
     <h3>Dimension by dimension</h3>${dims}`;
   $("#unit-select").addEventListener("change", e => { location.hash = "profile/" + e.target.value; });
   if (!chartDefaults()) return noCharts($("#radar-box"));
@@ -398,47 +430,205 @@ function renderCodebook(main) {
       <div class="scroll"><table><tbody>${Object.entries(Object.keys(d.scale).length ? d.scale : d.options).map(([k, v]) => `<tr><td style="width:150px"><strong>${esc(prettify(k))}</strong></td><td>${esc(v)}</td></tr>`).join("")}</tbody></table></div></div>`).join("")}`;
 }
 
+/* Research design views, built from research/framework.yaml */
+const FW = DATA?.framework;
+const READINGS = DATA?.readings || [];
+const DIAGRAM = String.raw`  COMPARATIVE STRAND                    ETHNOGRAPHY AND CULTURE STRAND
+  how much, what kind                   how, and why
+ +--------------------------------+    +--------------------------------+
+ | codebook, nine dimensions      |    | fieldwork and interviews       |
+ | AI profiles, expert ratings    |<-->| novels, film, music, ritual    |
+ | surveys and indices            |    | readings with a stance         |
+ +--------------------------------+    +--------------------------------+
+               |                                     |
+   codes, myth gaps, types                supports, complicates,
+               |                          contradicts or new
+               v                                     v
+ +-----------------------------------------------------------------------+
+ | assessment: agreement checks, contradiction flags, codebook revision  |
+ +-----------------------------------------------------------------------+
+               |
+               v
+   change over time (RQ3)        outcomes and hypotheses H1 to H8 (RQ4)`;
+
+function table(head, rows) {
+  return `<div class="scroll"><table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i === 0 ? ' class="nowrap"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+function unitLink(id) {
+  const u = unitById[id];
+  return u ? `<a href="#profile/${esc(id)}">${esc(u.unit)}, ${esc(u.period)}</a>` : esc(id);
+}
+function stanceChips(dims) {
+  return Object.entries(dims || {}).map(([d, s]) => `<span class="chip stance-${esc(s)}">${esc(dimById[d]?.name || d)}: ${esc(s)}</span>`).join("");
+}
+function readingBlock(r) {
+  return `<div class="dim"><div class="dim-head"><strong>${esc(r.title)}</strong><span class="note">${esc(r.status)}</span></div>
+    <p class="anchor">${unitLink(r.unit)}${r.site ? `, ${esc(r.site)}` : ""}${r.author ? `. By ${esc(r.author)}` : ""}</p>
+    <p class="reason">${esc(r.summary)}</p>
+    <div>${(r.materials || []).map(m => `<span class="chip">${esc(m)}</span>`).join("")}${(r.methods || []).map(m => `<span class="chip">${esc(m)}</span>`).join("")}</div>
+    <div>${stanceChips(r.dimensions)}</div>
+    ${r.body ? `<details><summary>Full reading</summary><pre class="body">${esc(r.body)}</pre></details>` : ""}</div>`;
+}
+
+function renderFramework(main) {
+  const strandName = id => FW.strands.find(s => s.id === id)?.name || id;
+  main.innerHTML = `
+    <h2>${esc(FW.title)}</h2>
+    <p class="summary">${esc(FW.aim)}</p>
+    <p class="summary"><strong>Central question.</strong> ${esc(FW.central_question)}</p>
+    <h3>Two strands</h3>
+    <div class="grid2 even">${FW.strands.map(s => `<div class="box"><strong>${esc(s.name)}</strong><p>${esc(s.summary)}</p><p class="note">Produces: ${esc(s.produces)}.</p></div>`).join("")}</div>
+    <div class="scroll" style="margin-top:18px"><pre class="diagram" role="img" aria-label="Diagram: the comparative strand and the ethnography and culture strand feed each other, both feed assessment, and assessment feeds the questions on change over time and outcomes.">${esc(DIAGRAM)}</pre></div>
+    <h3>How the strands feed each other</h3>
+    <ul class="plain">${FW.strand_links.map(l => `<li><span class="note">${esc(strandName(l.from))} to ${esc(strandName(l.to).toLowerCase())}.</span> ${esc(l.how)}</li>`).join("")}</ul>
+    <h3>Research questions</h3>
+    ${table(["", "Question", "How it is assessed", "Where the data comes from"], FW.research_questions.map(q => [`<strong>${esc(q.id)}</strong><small>${esc(q.name)}</small>`, esc(q.question), esc(q.assessed), esc(q.data)]))}
+    <p class="note">Each dimension has its own questions on the <a href="#questions">Questions</a> view.</p>
+    <h3>Four layers of evidence</h3>
+    ${table(["Layer", "Shows", "Method"], FW.layers.map(l => [`<a href="#sources/${esc(l.id)}">${esc(l.name)}</a>`, esc(l.shows), esc(l.method)]))}
+    <h3>How assessment works</h3>
+    <ol class="steps">${FW.assessment.map(a => `<li><strong>${esc(a.step)}.</strong> ${esc(a.detail)}</li>`).join("")}</ol>
+    <h3>Change over time</h3>
+    ${table(["Question", "Assessed as"], FW.change_questions.map(c => [esc(c.question), esc(c.assessed)]))}
+    <p class="note">Data: ${esc(FW.change_data)}.</p>
+    <h3>Hypotheses</h3>
+    ${table(["", "Hypothesis", "Outcome measure", "Data"], FW.hypotheses.map(h => [`<strong>${esc(h.id)}</strong>`, esc(h.claim), esc(h.outcome), esc(h.data)]))}`;
+}
+
+function assessedText(d) {
+  if (d.type === "ordinal") { const [lo, hi] = scaleRange(d.id); return `a code from ${lo} to ${hi} with the anchors in the codebook, a survey score where data exists, the myth gap between the two, and readings`; }
+  if (d.type === "multilabel") return "one primary and up to two secondary labels from the codebook list, survey items on what makes someone truly national, and readings";
+  if (d.type === "flags") return "whether each myth element is present and widely taught, and readings";
+  return "whether each other level is nested, competing or absent, dual-identity survey items, and readings";
+}
+function renderQuestions(main, focus) {
+  main.innerHTML = `
+    <h2>Questions by dimension</h2>
+    <p class="note">For each of the nine dimensions: the questions a researcher asks, what to look at in each layer of evidence, and where that evidence comes from. The lived layer is where the ethnography and culture strand comes in.</p>
+    <div class="legend">${DATA.dims.map(d => `<a href="#questions/${esc(d.id)}">${esc(d.name)}</a>`).join("<span>.</span>")}</div>
+    ${DATA.dims.map(d => { const spec = FW.dimensions[d.id]; return `
+      <section class="dim" id="q-${esc(d.id)}">
+        <div class="dim-head"><strong>${esc(d.name)}</strong><a href="#codebook">scale in codebook</a></div>
+        <p class="anchor">${esc(d.question)}</p>
+        <ul class="plain">${spec.questions.map(q => `<li>${esc(q)}</li>`).join("")}</ul>
+        ${table(["Layer", "What to look at", "Where the data comes from"], FW.layers.map(l => [esc(l.name), esc(spec.layers[l.id].look_at), esc(spec.layers[l.id].sources)]))}
+        <p class="note">Assessed by ${assessedText(d)}.</p>
+      </section>`; }).join("")}`;
+  if (focus && $("#q-" + focus)) $("#q-" + focus).scrollIntoView();
+}
+
+function renderCulture(main) {
+  const it = FW.interpretive;
+  const flags = Object.entries(DATA.reading_flags || {});
+  main.innerHTML = `
+    <h2>Ethnography and culture</h2>
+    <p class="summary">${esc(it.purpose)}</p>
+    <div class="grid3">${it.roles.map(r => `<div class="box"><strong>${esc(r.name)}</strong><p>${esc(r.detail)}</p></div>`).join("")}</div>
+    <h3>Readings (${READINGS.length})</h3>
+    ${flags.length ? `<p class="note">Flagged for recoding, where two or more readings contradict the code: ${flags.map(([u, ds]) => `${unitLink(u)} (${ds.map(d => esc(dimById[d]?.name || d)).join(", ")})`).join("; ")}.</p>` : ""}
+    ${READINGS.length ? READINGS.map(readingBlock).join("") : ""}
+    <div class="open-space"><strong>Open space for new research.</strong> ${READINGS.length ? "Add more readings" : "No readings yet. Each ethnographic or cultural study becomes a reading"} in the repository:
+      <ol><li>Copy <code>research/readings/TEMPLATE.md</code> to <code>research/readings/&lt;UNIT_ID&gt;_&lt;slug&gt;.md</code>.</li>
+      <li>Fill in the header: society, site, materials, methods, and a stance for each dimension the reading speaks to.</li>
+      <li>Write the observations, who is in and who is out, what the codebook misses, sources and your position.</li>
+      <li>Commit it. The site rebuilds and lists it here and on the society's profile.</li></ol></div>
+    <h3>Questions</h3>
+    <ol class="steps">${it.questions.map(q => `<li>${esc(q)}</li>`).join("")}</ol>
+    <h3>Materials</h3>
+    ${table(["Material", "Examples"], it.materials.map(m => [esc(m.name), esc(m.examples)]))}
+    <h3>Methods</h3>
+    ${table(["Method", "Use"], it.methods.map(m => [esc(m.name), esc(m.use)]))}
+    <h3>How readings are assessed</h3>
+    <p class="reason">${esc(it.assessment)}</p>
+    ${table(["Stance", "Meaning"], Object.entries(it.stances).map(([k, v]) => [`<span class="stance-${esc(k)}">${esc(k)}</span>`, esc(v)]))}
+    <p><strong>Quality criteria</strong></p>
+    <ul class="plain">${it.quality.map(q => `<li>${esc(q)}</li>`).join("")}</ul>
+    <h3>What a reading records</h3>
+    ${table(["Field", "What goes in it"], it.template_fields.map(f => [esc(f.name), esc(f.detail)]))}
+    <h3>Starter studies</h3>
+    <p class="note">Suggestions for first readings. None has been carried out.</p>
+    ${table(["Study", "Society", "Idea", "Materials"], it.starter_studies.map(s => [esc(s.title), s.unit === "any" ? "any" : unitLink(s.unit), esc(s.idea), esc(s.materials)]))}
+    <h3>Reading list</h3>
+    <p class="note">${esc(it.reading_list.note)}</p>
+    <ul class="plain">${it.reading_list.items.map(r => `<li>${esc(r)}</li>`).join("")}</ul>`;
+}
+
+function renderSources(main, layer) {
+  const layers = FW.layers;
+  const cur = layers.some(l => l.id === layer) ? layer : "";
+  const rows = FW.sources.filter(s => !cur || s.layer === cur);
+  const lname = id => layers.find(l => l.id === id)?.name || id;
+  main.innerHTML = `
+    <h2>Where the data comes from</h2>
+    <p class="note">Sources for each layer of evidence. Names only: check links, coverage and access terms before use. The <a href="#questions">Questions</a> view says which source serves which dimension.</p>
+    <div class="controls"><label class="ctl">Layer<select id="layer"><option value="">All layers</option>${layers.map(l => `<option value="${esc(l.id)}" ${l.id === cur ? "selected" : ""}>${esc(l.name)}</option>`).join("")}</select></label></div>
+    ${table(["Source", "Layer", "Measures", "Access"], rows.map(s => [esc(s.name), esc(lname(s.layer)), esc(s.measures), esc(s.access)]))}`;
+  $("#layer").addEventListener("change", e => { location.hash = "sources" + (e.target.value ? "/" + e.target.value : ""); });
+}
+
 /* Router */
+const DESIGN_VIEWS = ["framework", "questions", "culture", "sources", "codebook"];
+const PREVIEW_VIEWS = ["atlas", "profile", "change", "typology", "reliability"];
+const VIEW_TITLES = { framework: "Framework", questions: "Questions", culture: "Ethnography and culture", sources: "Data sources", codebook: "Codebook",
+  atlas: "Atlas", profile: "Profile", change: "Change over time", typology: "Typology", reliability: "Reliability" };
 function route() {
   destroyCharts();
   const main = $("#main");
-  if (!DATA || !DATA.units?.length) { main.innerHTML = '<p class="empty">No data in this build. Run <code>sou profile</code>, then <code>sou dashboard</code>.</p>'; return; }
-  const [view, arg] = (location.hash.slice(1) || "atlas").split("/");
-  const known = ["atlas", "profile", "change", "typology", "reliability", "codebook"];
-  const v = known.includes(view) ? view : "atlas";
+  if (!DATA || !FW) { main.innerHTML = '<p class="empty">No data in this build. Run <code>sou dashboard</code>.</p>'; return; }
+  const [view, arg] = (location.hash.slice(1) || "framework").split("/");
+  const v = VIEW_TITLES[view] ? view : "framework";
+  const preview = PREVIEW_VIEWS.includes(v);
   document.querySelectorAll("nav.views a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-  ({ atlas: () => renderAtlas(main), profile: () => renderProfile(main, decodeURIComponent(arg || "")), change: () => renderChange(main, decodeURIComponent(arg || "")),
-     typology: () => renderTypology(main), reliability: () => renderReliability(main), codebook: () => renderCodebook(main) })[v]();
-  document.title = `${({ atlas: "Atlas", profile: "Profile", change: "Change over time", typology: "Typology", reliability: "Reliability", codebook: "Codebook" })[v]}, Sense of Us atlas`;
+  $("#banner").innerHTML = preview && DATA.meta.demo ? '<p class="banner">The preview views use randomly generated demo data to show the layout. None of these codes are findings. Run the pilot and rebuild to replace them.</p>' : "";
+  document.title = `${VIEW_TITLES[v]}, Sense of Us atlas`;
+  if (preview && !DATA.units?.length) { main.innerHTML = '<p class="empty">No profiles yet. Run <code>sou profile</code>, then <code>sou dashboard</code>.</p>'; return; }
+  const a = decodeURIComponent(arg || "");
+  ({ framework: () => renderFramework(main), questions: () => renderQuestions(main, a), culture: () => renderCulture(main), sources: () => renderSources(main, a),
+     codebook: () => renderCodebook(main), atlas: () => renderAtlas(main), profile: () => renderProfile(main, a), change: () => renderChange(main, a),
+     typology: () => renderTypology(main), reliability: () => renderReliability(main) })[v]();
 }
 
 if (DATA) {
   const m = DATA.meta;
-  const info = [["Societies", m.n_units], ["Profiles", m.n_profiles], ["Built", m.generated], ["Models", m.models.join(", ")], ["Codebook", "v" + m.codebook_version]];
+  const info = [["Design", "v" + (FW?.version ?? "")], ["Codebook", "v" + m.codebook_version], ["Societies", m.n_units], ["Readings", READINGS.length],
+    ["Atlas data", m.demo ? "demo only" : `${m.n_profiles} profiles`], ["Built", m.generated]];
   $("#status").innerHTML = info.map(([k, v]) => `<dt>${k}:</dt><dd>${esc(v)}</dd>`).join("");
-  if (m.demo) $("#banner").innerHTML = '<p class="banner">This build uses randomly generated demo data to show the layout. None of these codes are findings. Run the pilot and rebuild to replace them.</p>';
 }
 
-/* Command prompt: views by name, "profile <name>", "change <name>", "help" */
-const VIEWS = ["atlas", "profile", "change", "typology", "reliability", "codebook"];
+/* Bring the top of the current view up to just below the sticky menu */
+function scrollToContent() {
+  const y = $("#banner").getBoundingClientRect().bottom + scrollY;
+  if (scrollY > y) scrollTo(0, y);
+}
+
+/* Command prompt: views by name, "profile <name>", "change <name>", "questions <dimension>", "sources <layer>", "help" */
+const VIEWS = [...DESIGN_VIEWS, ...PREVIEW_VIEWS];
 function findUnit(q) {
   q = q.toLowerCase();
   return (DATA?.units || []).find(u => u.id.toLowerCase() === q) || (DATA?.units || []).find(u => u.unit.toLowerCase().includes(q));
+}
+function findByName(list, q) {
+  q = q.toLowerCase();
+  return list.find(x => x.id.toLowerCase() === q) || list.find(x => x.name.toLowerCase().includes(q));
 }
 function runCommand(line) {
   const [cmd = "", ...rest] = line.trim().split(/\s+/);
   const arg = rest.join(" ");
   const c = cmd.toLowerCase();
   if (!c) return "";
-  if (c === "help" || c === "?") return `Commands: ${VIEWS.join(", ")}, profile <society>, change <society>, top, help.`;
+  if (c === "help" || c === "?") return `Commands: ${VIEWS.join(", ")}, questions <dimension>, sources <layer>, profile <society>, change <society>, top, help.`;
   if (c === "top") { scrollTo(0, 0); return ""; }
   if (!VIEWS.includes(c)) return `sou: command not found: ${cmd}. Type help.`;
   if (arg && (c === "profile" || c === "change")) {
     const u = findUnit(arg);
     if (!u) return `sou: no society matches "${arg}".`;
     location.hash = c + "/" + (c === "profile" ? u.id : u.family);
+  } else if (arg && (c === "questions" || c === "sources")) {
+    const hit = findByName(c === "questions" ? DATA.dims : FW.layers, arg);
+    if (!hit) return `sou: no ${c === "questions" ? "dimension" : "layer"} matches "${arg}".`;
+    location.hash = c + "/" + hit.id;
   } else location.hash = c;
-  $("#main").scrollIntoView();
+  scrollToContent();
   return "";
 }
 $("#prompt").addEventListener("submit", e => {
@@ -451,7 +641,7 @@ document.addEventListener("keydown", e => {
   const t = e.target;
   if (e.key === "/" && !["INPUT", "SELECT", "TEXTAREA"].includes(t.tagName)) { e.preventDefault(); $("#cmd").focus(); }
 });
-window.addEventListener("hashchange", () => { $("#term-out").textContent = ""; route(); });
+window.addEventListener("hashchange", () => { $("#term-out").textContent = ""; route(); if (!/^#questions\/./.test(location.hash)) scrollToContent(); });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", route);
 route();
 </script>

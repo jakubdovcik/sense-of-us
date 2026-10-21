@@ -20,15 +20,17 @@ If a workflow fails because an action version is deprecated, update it to the cu
 
 `sou dashboard` reads every valid profile in `data/profiles/`, computes consensus codes, reliability and clusters, injects the result into `dashboard/template.html`, and writes `site/index.html` plus `site/data.json`. With no real profiles it falls back to random demo data and shows a banner saying so. The `dashboard` workflow runs this on every push to `main`, so committing new profiles updates the published atlas. `site/` is not committed.
 
-The template is one self-contained HTML file in a retro terminal style (Courier New, a window frame with a title bar, an ASCII-art title and a working `sou:` command prompt) using Chart.js 4.4.1 from cdnjs. Views are Atlas (sortable heatmap), Profile (radar by perspective, codes by model and language, reasoning and evidence per dimension), Change over time, Typology, Reliability and Codebook. Keep the existing visual language when adding views.
+The template is one self-contained HTML file in a retro terminal style (Courier New, a window frame with a title bar, an ASCII-art title and a working `sou:` command prompt) using Chart.js 4.4.1 from cdnjs. Views come in two groups. Design views come from `research/framework.yaml` and readings: Framework (default), Questions (per dimension and layer), Ethnography and culture (readings and the interpretive strand), Data sources and Codebook. Preview views come from profiles and show demo data until real profiles exist: Atlas (sortable heatmap), Profile (radar by perspective, codes by model and language, readings, reasoning and evidence per dimension), Change over time, Typology and Reliability. The demo banner appears only on preview views. Keep the existing visual language when adding views.
 
 ## Layout
 
 | Path | Contents |
 | --- | --- |
 | `codebook/codebook.yaml` | Single source of truth for dimensions; schema, docs and forms derive from it |
+| `research/framework.yaml` | Research design: questions, assessment, layers, data sources, the ethnography and culture strand; `docs/RESEARCH_DESIGN.md` and the design views derive from it |
+| `research/readings/` | One Markdown file per ethnographic or cultural reading, copied from `TEMPLATE.md` |
 | `prompts/` | System, profile and open-coding prompts |
-| `src/sense_of_us/` | `codebook.py`, `profile.py` (API calls), `analysis.py`, `dashboard.py`, `cli.py` |
+| `src/sense_of_us/` | `codebook.py`, `research.py` (framework and readings), `profile.py` (API calls), `analysis.py`, `dashboard.py`, `cli.py` |
 | `dashboard/template.html` | Dashboard template |
 | `data/countries/` | Unit lists (`pilot.csv`, `dynamics.csv`, `expansion.csv`); ids sharing a prefix form a time series. Demo data covers every list; `sou profile` runs `pilot.csv` unless `--units` names another |
 | `data/sources/<UNIT_ID>/` | Primary source packs |
@@ -38,11 +40,11 @@ The template is one self-contained HTML file in a retro terminal style (Courier 
 
 ## Commands
 
-`sou profile [--dry-run] [--ids ...]`, `sou analyse`, `sou dashboard [--demo]`, `sou compare-ratings`, `sou open-code`, `sou codebook-md`, `sou schema`, `sou rating-form`.
+`sou profile [--dry-run] [--ids ...]`, `sou analyse`, `sou dashboard [--demo]`, `sou compare-ratings`, `sou open-code`, `sou codebook-md`, `sou framework-md`, `sou schema`, `sou rating-form`.
 
 ## Conventions
 
-1. After any change to `codebook/codebook.yaml`, run `sou schema` and `sou codebook-md` and commit the regenerated files with it.
+1. After any change to `codebook/codebook.yaml`, run `sou schema` and `sou codebook-md` and commit the regenerated files with it. After any change to `research/framework.yaml`, run `sou framework-md`. Its dimension ids must match the codebook.
 2. Never commit `.env`, API keys or files containing them.
 3. Never invent sources, data or citations in docs, code comments or dashboard copy.
 4. Prose uses British spelling, no em dashes, sentence case and plain direct sentences.

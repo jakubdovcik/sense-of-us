@@ -60,3 +60,58 @@ def test_dashboard_builds_with_demo_data(tmp_path):
     listed = {u["id"] for p in (ROOT / "data/countries").glob("*.csv") for u in load_units(p)}
     assert {u["id"] for u in payload["units"]} == listed
     assert all(set(payload["ordinal"]) <= set(u["consensus"]) for u in payload["units"])
+
+
+def test_framework_matches_codebook_and_renders():
+    from sense_of_us.codebook import load_codebook
+    from sense_of_us.research import LAYER_ORDER, load_framework, render_framework_md
+    fw = load_framework()
+    assert list(fw["dimensions"]) == [d["id"] for d in load_codebook()["dimensions"]]
+    assert all(set(s["layers"]) == set(LAYER_ORDER) for s in fw["dimensions"].values())
+    assert {s["layer"] for s in fw["sources"]} <= set(LAYER_ORDER)
+    md = render_framework_md(fw)
+    assert "## Ethnography and culture strand" in md and "### Radius" in md
+
+
+READING = """---
+title: Test reading
+unit: SVK-2015
+status: proposed
+summary: A short summary.
+dimensions:
+  radius: contradicts
+  glue: new
+---
+
+## Observations
+
+Text.
+"""
+
+
+def test_parse_reading_and_rejects_bad_stance():
+    import pytest
+    from sense_of_us.research import parse_reading
+    r = parse_reading(READING, "x.md")
+    assert r["dimensions"]["radius"] == "contradicts" and r["body"].startswith("## Observations")
+    with pytest.raises(ValueError):
+        parse_reading(READING.replace("contradicts", "maybe"), "x.md")
+    with pytest.raises(ValueError):
+        parse_reading("no header", "x.md")
+
+
+def test_load_readings_skips_template_and_flags_contradictions(tmp_path):
+    from sense_of_us.research import READINGS_DIR, contradiction_flags, load_readings
+    (tmp_path / "TEMPLATE.md").write_text((READINGS_DIR / "TEMPLATE.md").read_text(encoding="utf-8"))
+    (tmp_path / "a.md").write_text(READING)
+    (tmp_path / "b.md").write_text(READING.replace("Test reading", "Second reading"))
+    readings = load_readings(tmp_path)
+    assert [r["title"] for r in readings] == ["Second reading", "Test reading"]
+    assert contradiction_flags(readings) == {"SVK-2015": ["radius"]}
+    assert contradiction_flags(readings[:1]) == {}
+    assert load_readings(tmp_path / "missing") == []
+
+
+def test_template_reading_is_valid():
+    from sense_of_us.research import READINGS_DIR, parse_reading
+    parse_reading((READINGS_DIR / "TEMPLATE.md").read_text(encoding="utf-8"), "TEMPLATE.md")

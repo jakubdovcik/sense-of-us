@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> None:
 
     sub.add_parser("schema", help="Write the JSON schema to codebook/profile.schema.json")
     sub.add_parser("codebook-md", help="Write docs/CODEBOOK.md from the YAML codebook")
+    sub.add_parser("framework-md", help="Write docs/RESEARCH_DESIGN.md from research/framework.yaml")
 
     rf = sub.add_parser("rating-form", help="Write blank expert rating forms")
     rf.add_argument("--units", default="data/countries/pilot.csv")
@@ -59,6 +60,12 @@ def main(argv: list[str] | None = None) -> None:
     elif a.cmd == "codebook-md":
         out = ROOT / "docs" / "CODEBOOK.md"
         out.write_text(render_codebook_md(), encoding="utf-8")
+        print(f"wrote {out.relative_to(ROOT)}")
+
+    elif a.cmd == "framework-md":
+        from .research import render_framework_md
+        out = ROOT / "docs" / "RESEARCH_DESIGN.md"
+        out.write_text(render_framework_md(), encoding="utf-8")
         print(f"wrote {out.relative_to(ROOT)}")
 
     elif a.cmd == "rating-form":

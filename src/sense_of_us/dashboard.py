@@ -12,6 +12,7 @@ import pandas as pd
 from . import analysis as A
 from .codebook import ROOT, build_profile_schema, load_codebook
 from .profile import _fake_from_schema, load_units
+from .research import contradiction_flags, load_framework, load_readings
 
 TEMPLATE = ROOT / "dashboard" / "template.html"
 PLACEHOLDER = "/*__SOU_DATA__*/null"
@@ -96,6 +97,7 @@ def build_payload(records: list[dict[str, Any]], demo: bool, k: int = 4) -> dict
             "n_profiles": int(len(sub)),
         })
 
+    readings = load_readings()
     cluster_rows = []
     if len(means):
         for cid, r in means.iterrows():
@@ -117,6 +119,9 @@ def build_payload(records: list[dict[str, Any]], demo: bool, k: int = 4) -> dict
         "units": sorted(units, key=lambda u: (u["family"], u["period"])),
         "reliability": rel.where(pd.notna(rel), None).to_dict(orient="records"),
         "clusters": cluster_rows,
+        "framework": load_framework(),
+        "readings": readings,
+        "reading_flags": contradiction_flags(readings),
     }
 
 

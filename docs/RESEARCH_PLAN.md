@@ -68,6 +68,15 @@ The end product is the Sense of Us atlas, a dashboard on GitHub Pages that rebui
 - [ ] Add an outcomes view to the dashboard plotting each hypothesis (task T9)
 - [ ] Record which hypotheses look promising and the sample size needed to test them in `docs/FINDINGS.md`
 
+## Ethnography and culture (alongside steps 3 to 9)
+
+- [ ] Read the reading list in `docs/RESEARCH_DESIGN.md` and add verified references to `docs/LITERATURE.md`
+- [ ] Write the shared interview guide from the dimension questions
+- [ ] Get ethics approval before any fieldwork or interviews
+- [ ] Carry out one starter study for a calibration case and commit it as a reading
+- [ ] Compare its stances with the hand codes and record what changed in `docs/DECISIONS.md`
+- [ ] Invite other researchers to add readings using `research/readings/TEMPLATE.md`
+
 ## 10. Publish
 
 - [ ] Write the working paper or memo

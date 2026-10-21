@@ -57,17 +57,18 @@ The codebook (`codebook/codebook.yaml`) defines nine dimensions. The table expla
 | Salience | How strongly the "us" is felt and how easily it mobilises | Salience amplifies the effect of the other dimensions in both directions |
 | Nesting | Whether sub-national and supranational identities compete with the national one | Competing nesting predicts fragmentation; nested identities predict stable federations |
 
-## 5. Three layers of evidence and the myth gap
+## 5. Four layers of evidence and the myth gap
 
-Each dimension can be observed at three layers.
+Each dimension can be observed at four layers. The questions, indicators and data sources for every dimension and layer are in `docs/RESEARCH_DESIGN.md`, generated from `research/framework.yaml`.
 
 | Layer | What it shows | Example sources |
 | --- | --- | --- |
 | Narrative | What the society says about itself | Constitution preambles, anthems, currency, holidays, textbooks, founding speeches |
 | Institutional | What the rules encode | Citizenship law, official languages, reserved professions, fiscal equalisation, conscription |
 | Behavioural | What people actually feel and do | National versus ethnic self-identification in surveys, intermarriage, inter-group trust, voting on transfers |
+| Lived | How the "us" is experienced, performed and argued about in everyday life and culture | Ethnographies, interviews, festivals, sport, novels, film, music, humour, monuments and street names |
 
-The AI profiles mostly read the narrative layer, with some institutional evidence. The behavioural layer comes from external datasets (Afrobarometer, World Values Survey, ISSP National Identity module, Eurobarometer).
+The AI profiles mostly read the narrative layer, with some institutional evidence. The behavioural layer comes from external datasets (Afrobarometer, World Values Survey, ISSP National Identity module, Eurobarometer). The lived layer comes from the ethnography and culture strand: readings in `research/readings/` that say whether lived evidence supports, complicates or contradicts each code. Lived evidence is not scored, but two or more contradicting readings flag a code for review.
 
 The **myth gap** is the distance between the narrative and behavioural codes for the same dimension. A country whose constitution proclaims a civic "us" but whose citizens identify ethnically has a large radius gap. My hypothesis (medium confidence) is that large myth gaps predict breakdowns better than any single level, because they mark an "us" that elites maintain and citizens no longer believe.
 
@@ -111,6 +112,8 @@ The four verbs in the project description become four coded transitions between 
 Each transition gets coded triggers (war, independence, economic crisis, migration wave, leader change, deliberate policy, sporting or cultural event). With enough country-periods this supports an event-history analysis of which triggers precede which transitions. With the pilot alone it supports structured case comparison.
 
 ## 9. Hypotheses
+
+The hypotheses are maintained in `research/framework.yaml` and listed in `docs/RESEARCH_DESIGN.md`. This table is a copy for reading alongside the theory.
 
 | # | Hypothesis | Outcome measure | Data |
 | --- | --- | --- | --- |
