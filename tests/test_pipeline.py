@@ -57,5 +57,6 @@ def test_dashboard_builds_with_demo_data(tmp_path):
     assert PLACEHOLDER not in html
     payload = json.loads((tmp_path / "data.json").read_text(encoding="utf-8"))
     assert payload["meta"]["demo"] is True
-    assert len(payload["units"]) >= 12
+    listed = {u["id"] for p in (ROOT / "data/countries").glob("*.csv") for u in load_units(p)}
+    assert {u["id"] for u in payload["units"]} == listed
     assert all(set(payload["ordinal"]) <= set(u["consensus"]) for u in payload["units"])

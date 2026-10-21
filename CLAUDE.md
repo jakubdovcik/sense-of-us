@@ -30,7 +30,7 @@ The template is one self-contained HTML file in a retro terminal style (Courier 
 | `prompts/` | System, profile and open-coding prompts |
 | `src/sense_of_us/` | `codebook.py`, `profile.py` (API calls), `analysis.py`, `dashboard.py`, `cli.py` |
 | `dashboard/template.html` | Dashboard template |
-| `data/countries/` | Unit lists (`pilot.csv`, `dynamics.csv`); ids sharing a prefix form a time series |
+| `data/countries/` | Unit lists (`pilot.csv`, `dynamics.csv`, `expansion.csv`); ids sharing a prefix form a time series. Demo data covers every list; `sou profile` runs `pilot.csv` unless `--units` names another |
 | `data/sources/<UNIT_ID>/` | Primary source packs |
 | `data/profiles/` | One JSON file per model run, committed |
 | `data/reports/` | Analysis outputs |

@@ -31,7 +31,8 @@ def demo_records(seed: int = 7) -> list[dict[str, Any]]:
     schema = build_profile_schema(cb)
     ords = A.ordinal_dims(cb)
     scales = {d["id"]: sorted(int(k) for k in d["scale"]) for d in cb["dimensions"] if d["type"] == "ordinal"}
-    units = load_units(ROOT / "data/countries/pilot.csv") + load_units(ROOT / "data/countries/dynamics.csv")
+    lists = sorted((ROOT / "data/countries").glob("*.csv"), key=lambda p: (p.stem != "pilot", p.stem))
+    units = [u for p in lists for u in load_units(p)]
     rng = random.Random(seed)
     records = []
     for u in units:
